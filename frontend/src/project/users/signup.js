@@ -8,12 +8,20 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const signUp = async () => {
+    if (username.length === 0) {
+      setError("Username is required.");
+      return;
+    }
+    if (password.length === 0) {
+      setError("Password is required.");
+      return;
+    }
     try {
       await client.signup({ email, username, password });
 
@@ -22,8 +30,8 @@ function Signup() {
 
       dispatch(setCurrentUser(user));
       navigate("/project/account");
-    } catch (error) {
-      setError(error);
+    } catch (e) {
+      setError("A user with that username already exists.");
     }
   };
 
@@ -31,7 +39,7 @@ function Signup() {
     <div>
       <h2>Sign Up</h2>
 
-      {error && <div className="alert alert-danger">{error.message}</div>}
+      {error.length > 0 && <div className="alert alert-danger">{error}</div>}
 
       <input
         type="text"
