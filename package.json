@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "backend": "npm run --prefix backend/ start",
+    "frontend": "npm run --prefix frontend/ start"
+  }
+}
