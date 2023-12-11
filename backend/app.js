@@ -1,7 +1,6 @@
 import express from "express";
 import EnrollmentRoutes from "./enrollments/routes.js";
 import CourseRoutes from "./courses/routes.js";
-import ModuleRoutes from "./modules/routes.js";
 import UserRoutes from "./users/routes.js";
 import mongoose from "mongoose";
 import LikesRoutes from "./likes/routes.js";
@@ -40,7 +39,6 @@ app.use(express.json());
 FollowsRoutes(app);
 LikesRoutes(app);
 UserRoutes(app);
-ModuleRoutes(app);
 CourseRoutes(app);
 SectionRoutes(app);
 EnrollmentRoutes(app);
