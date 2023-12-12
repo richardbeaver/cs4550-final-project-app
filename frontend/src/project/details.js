@@ -31,16 +31,30 @@ function Details() {
   };
 
   const fetchLikes = async () => {
-    const likes = await likesClient.findUsersThatLikeAlbum(artistId);
+    const likes = await likesClient.findUsersThatLikeArtist(artistId);
     setLikes(likes);
   };
 
-  const currenUserLikesAlbum = async () => {
-    const _likes = await likesClient.createUserLikesAlbum(
+  const currenUserLikesArtist = async () => {
+    const _likes = await likesClient.createUserLikesArtist(
       currentUser._id,
       artistId
     );
     setLikes([_likes, ...likes]);
+    window.location.reload(false);
+  };
+
+  const currenUserUnlikesArtist = async () => {
+    const status = await likesClient.deleteUserLikesArtist(
+      currentUser._id,
+      artistId
+    );
+    window.location.reload(false);
+  };
+
+  const alreadyLikes = () => {
+    console.log(likes);
+    return likes.some((like) => like.user._id === currentUser._id);
   };
 
   useEffect(() => {
@@ -55,23 +69,25 @@ function Details() {
       {artist && (
         <div>
           {currentUser && (
-            <button
-              onClick={currenUserLikesAlbum}
-              className="btn btn-warning float-end"
-            >
-              Like
-            </button>
+            <>
+              {alreadyLikes() ? (
+                <button
+                  onClick={currenUserUnlikesArtist}
+                  className="btn btn-danger float-end"
+                >
+                  Unlike
+                </button>
+              ) : (
+                <button
+                  onClick={currenUserLikesArtist}
+                  className="btn btn-warning float-end"
+                >
+                  Like
+                </button>
+              )}
+            </>
           )}
           <h1>{artist.data.name}</h1>
-          {artist && artist.images && artist.images[0] && (
-            <img
-              src={artist.images[0].url}
-              width="100"
-              height="100"
-              alt={artist.name}
-            />
-          )}
-          {console.log(artist)}
           {artist && artist.images && artist.images[0] && (
             <img
               src={artist.images[0].url}

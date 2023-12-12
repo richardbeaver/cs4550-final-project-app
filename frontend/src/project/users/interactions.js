@@ -1,9 +1,7 @@
 import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import * as client from "./client";
 import * as likesClient from "../likes/client";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import * as followsClient from "../follows/client";
 
 function Interactions({ id }) {
@@ -12,7 +10,7 @@ function Interactions({ id }) {
   const [following, setFollowing] = useState([]);
 
   const fetchLikes = async () => {
-    const likes = await likesClient.findAlbumsThatUserLikes(id);
+    const likes = await likesClient.findArtistsThatUserLikes(id);
     setLikes(likes);
   };
 

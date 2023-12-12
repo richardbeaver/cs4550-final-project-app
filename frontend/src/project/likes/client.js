@@ -1,22 +1,28 @@
 import axios from "axios";
 
-// const API_BASE = "http://localhost:4000/api";
-const API_BASE = process.env.REACT_APP_API_BASE; // || "http://localhost:4000/api";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const USERS_API = `${API_BASE}/users`;
 const LIKES_API = `${API_BASE}/likes`;
 
-export const findAllLikes = async () => {};
-export const createUserLikesAlbum = async (userId, albumId) => {
-  const response = await axios.post(`${USERS_API}/${userId}/likes/${albumId}`);
+export const createUserLikesArtist = async (userId, artistId) => {
+  const response = await axios.post(`${USERS_API}/${userId}/likes/${artistId}`);
   return response.data;
 };
-export const deleteUserLikesAlbum = async (userId, albumId) => {};
-export const findUsersThatLikeAlbum = async (albumId) => {
-  const response = await axios.get(`${LIKES_API}/${albumId}/users`);
+
+export const deleteUserLikesArtist = async (userId, artistId) => {
+  const response = await axios.delete(
+    `${USERS_API}/${userId}/likes/${artistId}`
+  );
   return response.data;
 };
-export const findAlbumsThatUserLikes = async (userId) => {
+
+export const findUsersThatLikeArtist = async (artistId) => {
+  const response = await axios.get(`${LIKES_API}/${artistId}/users`);
+  return response.data;
+};
+
+export const findArtistsThatUserLikes = async (userId) => {
   const response = await axios.get(`${USERS_API}/${userId}/likes`);
   return response.data;
 };
