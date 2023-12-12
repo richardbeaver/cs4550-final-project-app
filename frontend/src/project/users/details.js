@@ -10,7 +10,7 @@ function UserDetails() {
   const [likes, setLikes] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  // const [currentUser, setCurrentUser] = useState(null); // [1
+
   const { currentUser } = useSelector((state) => state.userReducer);
   const { id } = useParams();
   const fetchLikes = async () => {
@@ -31,9 +31,11 @@ function UserDetails() {
   };
   const followUser = async () => {
     const status = await followsClient.userFollowsUser(id);
+    window.location.reload(false);
   };
   const unfollowUser = async () => {
     const status = await followsClient.userUnfollowsUser(id);
+    window.location.reload(false);
   };
   const fetchFollowers = async () => {
     const followers = await followsClient.findFollowersOfUser(id);
@@ -43,21 +45,17 @@ function UserDetails() {
     const following = await followsClient.findFollowedUsersByUser(id);
     setFollowing(following);
   };
-  // const fetchCurrentUser = async () => {
-  //   const user = await client.account();
-  //   setCurrentUser(user);
-  // };
   const alreadyFollowing = () => {
     return followers.some((follows) => {
       return follows.follower._id === currentUser._id;
     });
   };
+
   useEffect(() => {
     fetchUser();
     fetchLikes();
     fetchFollowers();
     fetchFollowing();
-    // fetchCurrentUser();
   }, [id]);
   return (
     <div>
