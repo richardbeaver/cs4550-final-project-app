@@ -28,12 +28,11 @@ function Navigation() {
         <Link to="/project/search" className="list-group-item">
           Search
         </Link>
-        <Link to="/project/users" className="list-group-item">
-          Users
-        </Link>
-        {/* <Link to="/project/details" className="list-group-item">
-        Details
-      </Link> */}
+        {currentUser && currentUser.role === "ADMIN" && (
+          <Link to="/project/users" className="list-group-item">
+            Users
+          </Link>
+        )}
       </div>
     </>
   );
