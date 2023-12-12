@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import * as likesClient from "../likes/client";
 import { useEffect, useState } from "react";
 import * as followsClient from "../follows/client";
+import * as client from "../client";
 
 function Interactions({ id }) {
   const [likes, setLikes] = useState([]);
@@ -49,7 +50,6 @@ function Interactions({ id }) {
             to={`/project/users/${follows.follower._id}`}
           >
             {follows.follower.username}
-            {follows.follower._id}
           </Link>
         ))}
       </div>
@@ -62,7 +62,6 @@ function Interactions({ id }) {
             to={`/project/users/${follows.followed._id}`}
           >
             {follows.followed.username}
-            {follows.followed._id}
           </Link>
         ))}
       </div>
