@@ -6,9 +6,9 @@ import * as likesClient from "./likes/client";
 
 function Details() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [album, setAlbum] = useState(null);
+  const [artist, setArtist] = useState(null);
   const [tracks, setTracks] = useState([]);
-  const { albumId } = useParams();
+  const { artistId } = useParams();
   const [likes, setLikes] = useState([]);
 
   const fetchUser = async () => {
@@ -20,31 +20,31 @@ function Details() {
     }
   };
 
-  const fetchAlbum = async () => {
-    const album = await client.findAlbumById(albumId);
-    setAlbum(album);
+  const fetchArtist = async () => {
+    const artist = await client.findArtistById(artistId);
+    setArtist(artist);
   };
 
   const fetchTracks = async () => {
-    const tracks = await client.findTracksByAlbumId(albumId);
+    const tracks = await client.findTracksForArtistId(artistId);
     setTracks(tracks);
   };
 
   const fetchLikes = async () => {
-    const likes = await likesClient.findUsersThatLikeAlbum(albumId);
+    const likes = await likesClient.findUsersThatLikeAlbum(artistId);
     setLikes(likes);
   };
 
   const currenUserLikesAlbum = async () => {
     const _likes = await likesClient.createUserLikesAlbum(
       currentUser._id,
-      albumId
+      artistId
     );
     setLikes([_likes, ...likes]);
   };
 
   useEffect(() => {
-    fetchAlbum();
+    fetchArtist();
     fetchTracks();
     fetchUser();
     fetchLikes();
@@ -52,7 +52,7 @@ function Details() {
 
   return (
     <div>
-      {album && (
+      {artist && (
         <div>
           {currentUser && (
             <button
@@ -62,11 +62,24 @@ function Details() {
               Like
             </button>
           )}
-          <h1>{album.name}</h1>
-          <img
-            src={`https://api.napster.com/imageserver/v2/albums/${album.id}/images/300x300.jpg`}
-            alt={album.name}
-          />
+          <h1>{artist.data.name}</h1>
+          {artist && artist.images && artist.images[0] && (
+            <img
+              src={artist.images[0].url}
+              width="100"
+              height="100"
+              alt={artist.name}
+            />
+          )}
+          {console.log(artist)}
+          {artist && artist.images && artist.images[0] && (
+            <img
+              src={artist.images[0].url}
+              width="100"
+              height="100"
+              alt={artist.name}
+            />
+          )}
           <h2>Likes</h2>
           <ul className="list-group">
             {likes.map((like, index) => (
@@ -83,14 +96,26 @@ function Details() {
           <ul className="list-group">
             {tracks.map((track, index) => (
               <li key={index} className="list-group-item">
-                <h3>{track.name}</h3>
-                <audio controls>
-                  <source src={track.previewURL} type="audio/mpeg" />
-                </audio>
+                <div className="d-flex gap-3">
+                  {track.album.images[0] && (
+                    <img
+                      src={track.album.images[0].url}
+                      width="100"
+                      height="100"
+                      alt={artist.name}
+                    />
+                  )}
+                  <div>
+                    <h3>{track.name}</h3>
+                    <h5>{track.album.name}</h5>
+                    <Link to={track.external_urls.spotify} target="_blank">
+                      Open in Spotify
+                    </Link>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
-          <pre>{JSON.stringify(tracks, null, 2)}</pre>
         </div>
       )}
     </div>

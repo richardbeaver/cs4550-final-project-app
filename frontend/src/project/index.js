@@ -35,7 +35,7 @@ function Project() {
                 <Route path="/account" element={<Account />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/search/:search" element={<Search />} />
-                <Route path="/details/:albumId" element={<Details />} />
+                <Route path="/details/:artistId" element={<Details />} />
                 <Route path="/users" element={<UserList />} />
                 <Route path="/users/:id" element={<UserDetails />} />
               </Routes>

@@ -11,11 +11,11 @@ function Search() {
 
   const navigate = useNavigate();
 
-  const fetchAlbums = async (search) => {
+  const fetchArtists = async (searchTerm) => {
     try {
-      const results = await client.findAlbums(search);
+      const results = await client.searchArtists(searchTerm);
       setResults(results);
-      setSearchTerm(search);
+      setSearchTerm(searchTerm);
     } catch (e) {
       setErrorMessage(e.message);
     }
@@ -23,7 +23,7 @@ function Search() {
 
   useEffect(() => {
     if (search) {
-      fetchAlbums(search);
+      fetchArtists(search);
     }
   }, [search]);
 
@@ -50,22 +50,26 @@ function Search() {
           setSearchTerm(event.target.value);
         }}
       />
-      <h2>Results</h2>
+      {results && <h2>Results</h2>}
+      {results && results.length === 0 && <h4>No results found.</h4>}
       <ul className="list-group">
         {results &&
-          results.map((album, index) => (
+          results.map((artist, index) => (
             <li key={index} className="list-group-item">
-              <Link to={`/project/details/${album.id}`}>
-                <h3>{album.name}</h3>
-                <img
-                  src={`https://api.napster.com/imageserver/v2/albums/${album.id}/images/300x300.jpg`}
-                  alt={album.name}
-                />
+              <Link to={`/project/details/${artist.id}`}>
+                <h3>{artist.name}</h3>
+                {artist.images[0] && (
+                  <img
+                    src={artist.images[0].url}
+                    width="100"
+                    height="100"
+                    alt={artist.name}
+                  />
+                )}
               </Link>
             </li>
           ))}
       </ul>
-      <pre>{JSON.stringify(results, null, 2)}</pre>
     </div>
   );
 }
