@@ -78,7 +78,7 @@ function Home() {
                       alt={artist.name}
                     />
                   )}
-                  <h3>{artist.name}</h3>
+                  <h4>{artist.name}</h4>
                 </Link>
               </li>
             ))}
@@ -87,7 +87,7 @@ function Home() {
       )}
 
       {genericTracks.length > 0 && (
-        <h1 className="mt-3">{GENERIC_LIST_NAME}:</h1>
+        <h2 className="mt-3">{GENERIC_LIST_NAME}:</h2>
       )}
 
       <div className="list-group">
@@ -106,7 +106,7 @@ function Home() {
                 </>
               )}
               <div>
-                <h3>{track.name}</h3>
+                <h4>{track.name}</h4>
                 <Link to={`/project/details/${track.artists[0].id}`}>
                   <h5>{track.artists[0].name}</h5>
                 </Link>
