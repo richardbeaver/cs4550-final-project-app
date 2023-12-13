@@ -27,10 +27,10 @@ function UserDetails() {
 
   const toggleAdminStatus = async () => {
     let newRole;
-    if (user.role === "USER") {
-      newRole = "ADMIN";
-    } else if (user.role === "ADMIN") {
+    if (user.role === "ADMIN") {
       newRole = "USER";
+    } else {
+      newRole = "ADMIN";
     }
     const status = await client.updateUser(id, { ...user, role: newRole });
     window.location.reload(false);
