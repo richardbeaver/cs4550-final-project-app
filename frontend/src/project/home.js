@@ -16,7 +16,7 @@ function Home() {
 
   const fetchLikes = async () => {
     if (!currentUser) {
-      return;
+      return [];
     }
     try {
       const likes = await likesClient.findArtistsThatUserLikes(currentUser._id);
@@ -26,7 +26,7 @@ function Home() {
     }
   };
 
-  const fetchArtistRecommendations = async () => {
+  const setArtistRecommendations = async () => {
     const likes = await fetchLikes();
     if (likes.length === 0) {
       return;
@@ -48,7 +48,7 @@ function Home() {
   };
 
   useEffect(() => {
-    fetchArtistRecommendations();
+    setArtistRecommendations();
     getGenericTracks();
   }, []);
 
