@@ -24,11 +24,13 @@ function Project() {
         <div className="container-fluid">
           <h1>Artist Track</h1>
           <p>Keep track of your friends and your favorite artists.</p>
-          <div className="row">
-            <div className="col-2">
+
+          <div className="d-flex gap-3">
+            <div className="">
               <Navigation />
             </div>
-            <div className="col-10">
+
+            <div className="container-fluid">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/signin" element={<SignIn />} />

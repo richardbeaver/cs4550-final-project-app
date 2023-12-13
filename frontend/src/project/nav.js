@@ -6,7 +6,7 @@ function Navigation() {
   const { currentUser } = useSelector((state) => state.userReducer);
   return (
     <>
-      <div className="list-group">
+      <div className="list-group" style={{ width: "110px" }}>
         <Link to="/project/" className="list-group-item">
           Home
         </Link>
