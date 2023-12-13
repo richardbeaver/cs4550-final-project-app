@@ -16,12 +16,12 @@ function FollowsRoutes(app) {
   const findFollowersOfUser = async (req, res) => {
     const followed = req.params["followed"];
     const followers = await dao.findFollowersOfUser(followed);
-    res.json(followers);
+    res.json(followers.filter((follow) => follow.follower !== null));
   };
   const findFollowedUsersByUser = async (req, res) => {
     const follower = req.params["follower"];
     const followed = await dao.findFollowedUsersByUser(follower);
-    res.json(followed);
+    res.json(followed.filter((follow) => follow.followed !== null));
   };
 
   app.post("/api/users/:followed/follows", userFollowsUser);
