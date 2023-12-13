@@ -71,25 +71,32 @@ function UserDetails() {
       {user && (
         <div>
           <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
+          {currentUser && currentUser.role === "ADMIN" && (
+            <p>Email: {user.email}</p>
+          )}
 
           {currentUser && currentUser.role === "ADMIN" ? (
             <>
               <p>First Name:</p>
               <input
                 type="text"
-                className="form-control"
+                className="form-control mb-3"
                 value={user.firstName}
                 onChange={(e) =>
                   setUser({ ...user, firstName: e.target.value })
                 }
               />
+              <p>Last Name:</p>
+              <input
+                type="text"
+                className="form-control mb-3"
+                value={user.lastName}
+                onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+              />
             </>
           ) : (
             <p>First Name: {user.firstName}</p>
           )}
-
-          <p className="mt-3">Last Name: {user.lastName}</p>
 
           {currentUser && currentUser.role === "ADMIN" && (
             <>
