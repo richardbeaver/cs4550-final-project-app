@@ -72,25 +72,38 @@ function UserDetails() {
         <div>
           <p>Username: {user.username}</p>
           <p>Email: {user.email}</p>
-          <p>
-            First Name:
-            <input
-              type="text"
-              className="form-control"
-              value={user.firstName}
-              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-            />
-          </p>
-          <p>Last Name: {user.lastName}</p>
-          <button onClick={updateUser} className="btn btn-primary">
-            Update
-          </button>
-          <button
-            onClick={() => deleteUser(user._id)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
+
+          {currentUser && currentUser.role === "ADMIN" ? (
+            <>
+              <p>First Name:</p>
+              <input
+                type="text"
+                className="form-control"
+                value={user.firstName}
+                onChange={(e) =>
+                  setUser({ ...user, firstName: e.target.value })
+                }
+              />
+            </>
+          ) : (
+            <p>First Name: {user.firstName}</p>
+          )}
+
+          <p className="mt-3">Last Name: {user.lastName}</p>
+
+          {currentUser && currentUser.role === "ADMIN" && (
+            <>
+              <button onClick={updateUser} className="btn btn-primary">
+                Update
+              </button>
+              <button
+                onClick={() => deleteUser(user._id)}
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
+            </>
+          )}
 
           <Interactions id={user._id} />
         </div>
