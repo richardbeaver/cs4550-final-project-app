@@ -20,17 +20,32 @@ function UserDetails() {
     const user = await client.findUserById(id);
     setUser(user);
   };
+
   const updateUser = async () => {
     const status = await client.updateUser(id, user);
   };
+
+  const toggleAdminStatus = async () => {
+    let newRole;
+    if (user.role === "USER") {
+      newRole = "ADMIN";
+    } else if (user.role === "ADMIN") {
+      newRole = "USER";
+    }
+    const status = await client.updateUser(id, { ...user, role: newRole });
+    window.location.reload(false);
+  };
+
   const deleteUser = async (id) => {
     const status = await client.deleteUser(id);
     navigate("/project/users");
   };
+
   const followUser = async () => {
     const status = await followsClient.userFollowsUser(id);
     window.location.reload(false);
   };
+
   const unfollowUser = async () => {
     const status = await followsClient.userUnfollowsUser(id);
     window.location.reload(false);
@@ -99,9 +114,14 @@ function UserDetails() {
           )}
 
           {currentUser && currentUser.role === "ADMIN" && (
-            <>
+            <div className="d-flex gap-1">
               <button onClick={updateUser} className="btn btn-primary">
                 Update
+              </button>
+              <button onClick={toggleAdminStatus} className="btn btn-info">
+                {user.role === "ADMIN"
+                  ? "Remove Admin Privilege"
+                  : "Make Admin"}
               </button>
               <button
                 onClick={() => deleteUser(user._id)}
@@ -109,7 +129,7 @@ function UserDetails() {
               >
                 Delete
               </button>
-            </>
+            </div>
           )}
 
           <Interactions id={user._id} />
