@@ -96,7 +96,7 @@ function Details() {
               alt={artist.name}
             />
           )}
-          <h2>Likes</h2>
+          <h2 className="pt-2">Likes</h2>
           <ul className="list-group">
             {likes.map((like, index) => (
               <li key={index} className="list-group-item">
@@ -108,7 +108,7 @@ function Details() {
             ))}
           </ul>
 
-          <h2>Tracks</h2>
+          <h2 className="pt-3">Tracks</h2>
           <ul className="list-group">
             {tracks.map((track, index) => (
               <li key={index} className="list-group-item">

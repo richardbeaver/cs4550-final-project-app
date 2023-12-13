@@ -49,7 +49,7 @@ function Search() {
           setSearchTerm(event.target.value);
         }}
       />
-      {results && <h2>Results</h2>}
+      {results && <h2 className="pt-3">Results</h2>}
       {results && results.length === 0 && <h4>No results found.</h4>}
       <ul className="list-group">
         {results &&
