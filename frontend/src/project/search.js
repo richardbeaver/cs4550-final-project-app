@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { API_KEY } from "./client";
 import * as client from "./client";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
@@ -55,9 +54,11 @@ function Search() {
       <ul className="list-group">
         {results &&
           results.map((artist, index) => (
-            <li key={index} className="list-group-item">
-              <Link to={`/project/details/${artist.id}`}>
-                <h3>{artist.name}</h3>
+            <li key={index} className="list-group-item d-flex">
+              <Link
+                to={`/project/details/${artist.id}`}
+                className="d-flex gap-2"
+              >
                 {artist.images[0] && (
                   <img
                     src={artist.images[0].url}
@@ -66,6 +67,7 @@ function Search() {
                     alt={artist.name}
                   />
                 )}
+                <h3>{artist.name}</h3>
               </Link>
             </li>
           ))}

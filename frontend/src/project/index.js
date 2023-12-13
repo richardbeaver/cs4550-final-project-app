@@ -22,7 +22,8 @@ function Project() {
     <Provider store={store}>
       <CurrentUser>
         <div className="container-fluid">
-          <h1>Project</h1>
+          <h1>Artist Track</h1>
+          <p>Keep track of your friends and your favorite artists.</p>
           <div className="row">
             <div className="col-2">
               <Navigation />

@@ -51,3 +51,19 @@ export const findTracksForArtistId = async (artistId) => {
   );
   return response.data.tracks;
 };
+
+export const getTracksForPlaylist = async (playlistId) => {
+  const response = await axios.get(
+    `${SPOTIFY_API}/playlists/${playlistId}`,
+    await headers()
+  );
+  return response.data.tracks.items;
+};
+
+export const getRelatedArtists = async (artistId) => {
+  const response = await axios.get(
+    `${SPOTIFY_API}/artists/${artistId}/related-artists`,
+    await headers()
+  );
+  return response.data.artists;
+};
