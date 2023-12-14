@@ -1,11 +1,8 @@
 import Home from "./home";
-import Login from "./login";
 import Signup from "./users/signup";
-import Profile from "./profile";
 import Search from "./search";
 import Details from "./details";
-import { Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import UserList from "./users/list";
 import UserDetails from "./users/details";
 import SignIn from "./users/signin";
@@ -16,8 +13,6 @@ import Navigation from "./nav";
 import CurrentUser from "./users/currentUser";
 
 function Project() {
-  const [key, setKey] = useState("home");
-
   return (
     <Provider store={store}>
       <CurrentUser>
