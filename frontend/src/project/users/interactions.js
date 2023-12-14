@@ -3,16 +3,38 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import * as likesClient from "../likes/client";
 import { useEffect, useState } from "react";
 import * as followsClient from "../follows/client";
-import * as client from "../client";
+import * as spotifyClient from "../client";
 
 function Interactions({ id }) {
-  const [likes, setLikes] = useState([]);
+  const [likedArtists, setlikedArtists] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
 
   const fetchLikes = async () => {
     const likes = await likesClient.findArtistsThatUserLikes(id);
-    setLikes(likes);
+
+    const artists = await Promise.all(
+      likes.map(async (like) => {
+        const spotifyId = like.albumId;
+        // Check own database for artist with name
+        let artist = await likesClient.checkForArtist(spotifyId);
+
+        if (!artist) {
+          // Get name from spotify
+          const response = await spotifyClient.findArtistById(spotifyId);
+          let name = response.data.name;
+          // Add to own database
+          artist = await likesClient.addNewArtist({
+            spotifyId,
+            artistName: name,
+          });
+        }
+
+        return artist;
+      })
+    );
+
+    setlikedArtists(artists);
   };
 
   const fetchFollowers = async () => {
@@ -35,9 +57,11 @@ function Interactions({ id }) {
     <>
       <h3>Likes</h3>
       <ul className="list-group">
-        {likes.map((like, index) => (
+        {likedArtists.map((artist, index) => (
           <li key={index} className="list-group-item">
-            <Link to={`/project/details/${like.albumId}`}>{like.albumId}</Link>
+            <Link to={`/project/details/${artist.spotifyId}`}>
+              {artist.artistName}
+            </Link>
           </li>
         ))}
       </ul>
