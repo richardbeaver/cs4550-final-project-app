@@ -7,7 +7,7 @@ import { setCurrentUser } from "./reducer";
 function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,14 +19,16 @@ function SignIn() {
       dispatch(setCurrentUser(user));
       navigate("/project/account");
     } catch (error) {
-      setError(error);
+      setErrorMessage(
+        "Could not sign in. Check that your username/password are correct or try again later."
+      );
     }
   };
 
   return (
     <div>
       <h2>Sign In</h2>
-      {error && <div className="alert alert-danger">{error.message}</div>}
+      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
       <input
         type="text"
         className="form-control"
