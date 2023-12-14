@@ -1,12 +1,9 @@
 import express from "express";
-import EnrollmentRoutes from "./enrollments/routes.js";
-import CourseRoutes from "./courses/routes.js";
 import UserRoutes from "./users/routes.js";
 import mongoose from "mongoose";
 import LikesRoutes from "./likes/routes.js";
 import FollowsRoutes from "./follows/routes.js";
-import SectionRoutes from "./sections/routes.js";
-import ArtistRoutes from "./artist/routes.js";
+import ArtistRoutes from "./artists/routes.js";
 import cors from "cors";
 import session from "express-session";
 import "dotenv/config";
@@ -41,8 +38,5 @@ FollowsRoutes(app);
 LikesRoutes(app);
 UserRoutes(app);
 ArtistRoutes(app);
-CourseRoutes(app);
-SectionRoutes(app);
-EnrollmentRoutes(app);
 
 app.listen(4000);
