@@ -53,7 +53,6 @@ function Details() {
   };
 
   const alreadyLikes = () => {
-    console.log(likes);
     return likes.some((like) => like.user._id === currentUser._id);
   };
 
