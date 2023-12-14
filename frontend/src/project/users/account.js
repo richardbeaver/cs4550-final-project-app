@@ -38,7 +38,7 @@ function Account() {
     <div>
       <h1>Account</h1>
       {user && (
-        <div>
+        <div className="text-nowrap">
           <p>Username: {user.username}</p>
 
           {/* Email */}
